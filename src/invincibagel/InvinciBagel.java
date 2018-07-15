@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -41,41 +42,27 @@ public class InvinciBagel extends Application {
         gameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                // play game
             }
         });
         helpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                splashScreenTextArea.setImage(instructionLayer);
             }
         });
         scoreButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                splashScreenTextArea.setImage(scoresLayer);
             }
         });
         legalButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                splashScreenTextArea.setImage(legalLayer);
             }
         });
-
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-
-        scene = new Scene(root, 300, 250);
-        scene.setFill(Color.TRANSPARENT);
-
     }
 
     /**
@@ -88,10 +75,43 @@ public class InvinciBagel extends Application {
     private void createSplashScreenNodes() {
         root = new StackPane();
 //        root.setBackground(Background.EMPTY);
+        scene = new Scene(root, 640, 400);
+//        scene.setFill(Color.TRANSPARENT);
 //        root.getChildren().add(btn);
+
+        buttonContainer = new HBox(12); // Espaçamento de 12 px
+        buttonContainer.setAlignment(Pos.BOTTOM_LEFT);
+        buttonContainerPadding = new Insets(0, 0, 10, 12);
+        buttonContainer.setPadding(buttonContainerPadding);
+
+        gameButton = new Button();
+        gameButton.setText("PLAY GAME");
+        gameButton.setLayoutX(0);
+        helpButton = new Button();
+        helpButton.setText("INSTRUCTIONS");
+        scoreButton = new Button();
+        scoreButton.setText("HIGH SCORES");
+        legalButton = new Button();
+        legalButton.setText("LEGAL & CREDITS");
+
+        buttonContainer.getChildren().addAll(gameButton, helpButton, scoreButton, legalButton);
+//        root.getChildren().add(buttonContainer);
+
+        splashScreen = new Image("/invincibagelsplash.png", 640, 400, true, false, true);
+        splashScreenBackplate = new ImageView();
+        splashScreenBackplate.setImage(splashScreen);
+
+        instructionLayer = new Image("/invincibagelinstruct.png", 640, 400, true, false, true);
+        splashScreenTextArea = new ImageView();
+        splashScreenTextArea.setImage(instructionLayer);
+
+        legalLayer = new Image("/invincibagelcreds.png", 640, 400, true, false, true);
+        scoresLayer = new Image("/invincibagelscores.png", 640, 400, true, false, true);
     }
 
     private void addNodesToStackPane() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        root.getChildren().add(splashScreenBackplate);
+        root.getChildren().add(splashScreenTextArea);
+        root.getChildren().add(buttonContainer);
     }
 }
